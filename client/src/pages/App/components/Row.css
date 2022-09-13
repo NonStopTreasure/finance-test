@@ -1,0 +1,20 @@
+.ticker__cell, .exchange__cell {
+  width: 100px;
+}
+.ticker__p, .exchange__p {
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 8px;
+  padding: 5px;
+  color: white;
+}
+
+.ticker__p {
+  background: blue;
+}
+
+.exchange__p {
+  background: chocolate;
+}
+
+/*# sourceMappingURL=Row.css.map */

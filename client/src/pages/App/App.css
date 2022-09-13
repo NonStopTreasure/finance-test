@@ -1,0 +1,46 @@
+.app-main__div {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.app-header {
+  cursor: pointer;
+  box-shadow: 0 1px 8px -4px rgba(0, 0, 0, 0.75);
+  border-bottom: 1px solid lightgrey;
+  height: 10vh;
+  width: 100%;
+  background: whitesmoke;
+  padding: 0 50px;
+  position: fixed;
+}
+.app-header__h1, .app-header__h6 {
+  width: fit-content;
+  cursor: pointer;
+}
+.app-header__h6 {
+  font-style: italic;
+}
+.app-header:hover {
+  background: white;
+}
+.app-content {
+  padding: 100px 250px;
+  background: whitesmoke;
+  overflow-y: auto;
+  margin-top: 10vh;
+  height: 90vh;
+}
+.app-content__table {
+  width: 100%;
+}
+.app-content__tr_main th {
+  background: antiquewhite;
+}
+.app-content__table {
+  height: 100%;
+}
+.app-content__table tr {
+  height: 100px;
+}
+
+/*# sourceMappingURL=App.css.map */

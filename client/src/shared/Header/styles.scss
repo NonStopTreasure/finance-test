@@ -1,0 +1,18 @@
+.app{
+  &-header{
+    border-bottom: 1px solid black;
+    height: 10vh;
+    width: 100%;
+    background: cornsilk;
+    padding: 0 50px;
+    position: fixed;
+    &__h1, &__h6{
+      width: fit-content;
+      cursor: pointer;
+    }
+    &__h6{
+      font-style: italic;
+    }
+  }
+}
+

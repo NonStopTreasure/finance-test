@@ -1,0 +1,17 @@
+.app-header {
+  border-bottom: 1px solid black;
+  height: 10vh;
+  width: 100%;
+  background: cornsilk;
+  padding: 0 50px;
+  position: fixed;
+}
+.app-header__h1, .app-header__h6 {
+  width: fit-content;
+  cursor: pointer;
+}
+.app-header__h6 {
+  font-style: italic;
+}
+
+/*# sourceMappingURL=styles.css.map */
