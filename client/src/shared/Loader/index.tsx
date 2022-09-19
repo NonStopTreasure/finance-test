@@ -7,10 +7,23 @@ import { LoaderTypes } from '../../common/enums';
 const Loader = (props: { type: LoaderTypes }) => {
   if (props.type === LoaderTypes.skeleton) {
     return (
-      <Box sx={{ display: 'flex' }}>
+      <Box>
         <Skeleton />
         <Skeleton />
         <Skeleton />
+        <br />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <br />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <br />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <br />
       </Box>
     );
   }

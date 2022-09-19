@@ -1,6 +1,10 @@
 import React from 'react';
+import ArrowCircleUpOutlinedIcon from '@mui/icons-material/ArrowCircleUpOutlined';
+import ArrowCircleDownOutlinedIcon from '@mui/icons-material/ArrowCircleDownOutlined';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
 import {
   Box,
+  Button,
   Collapse,
   IconButton,
   Table,
@@ -11,22 +15,26 @@ import {
   Typography,
 } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
+import { ISocketData } from '../../../common/interfaces';
 import moment from 'moment/moment';
 import './Row.scss';
-const Row = (props: {
-  row: {
-    ticker: string;
-    exchange: string;
-    price: number;
-    change: number;
-    change_percent: number;
-    dividend: number;
-    yield: number;
-    last_trade_time: string;
-  };
-}) => {
+import { UpdateTypes } from '../../../common/enums';
+
+const Row = (props: { row: ISocketData }) => {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  const changePercentFixed = (row.change_percent * 100).toFixed(2);
+  const UpdateChanger = (status: UpdateTypes) => {
+    if (status === UpdateTypes.none) {
+      return <AcUnitIcon />;
+    }
+    if (status === UpdateTypes.increase) {
+      return <ArrowCircleUpOutlinedIcon color={'success'} />;
+    }
+    if (status === UpdateTypes.decrease) {
+      return <ArrowCircleDownOutlinedIcon color={'error'} />;
+    }
+  };
 
   return (
     <React.Fragment>
@@ -43,12 +51,20 @@ const Row = (props: {
         <TableCell className="ticker__cell" component="th" scope="row">
           <p className="ticker__p">{row.ticker}</p>
         </TableCell>
-        <TableCell align="right">{row.price}</TableCell>
+        <TableCell align="right">
+          <div className={'d-flex align-items-center justify-content-end'}>
+            <p className="row-update-status">{row.price}</p>
+            {UpdateChanger(row.update_status)}
+          </div>
+        </TableCell>
         <TableCell align="right">{row.change}</TableCell>
-        <TableCell align="center">{row.change_percent}</TableCell>
+        <TableCell align="right">{changePercentFixed + '%'}</TableCell>
+        <TableCell align="center">
+          <Button>Ignore</Button>
+        </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell className={'pb-0 pt-0'} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">

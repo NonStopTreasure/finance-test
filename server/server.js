@@ -26,9 +26,9 @@ function utcDate() {
   return new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
 }
 
-function getQuotes(socket) {
+function getQuotes(socket, ignoreList) {
 
-  const quotes = tickers.map(ticker => ({
+  const quotes = tickers.filter(ticker => !ignoreList.includes(ticker)).map(ticker => ({
     ticker,
     exchange: 'NASDAQ',
     price: randomValue(100, 300, 2),
@@ -42,14 +42,13 @@ function getQuotes(socket) {
   socket.emit('ticker', quotes);
 }
 
-function trackTickers(socket) {
+function trackTickers(socket,data) {
   // run the first time immediately
-  getQuotes(socket);
-
+  getQuotes(socket, data?.ignoreList);
   // every N seconds
   const timer = setInterval(function() {
-    getQuotes(socket);
-  }, FETCH_INTERVAL);
+    getQuotes(socket,data?.ignoreList);
+  }, data?.timer || FETCH_INTERVAL);
 
   socket.on('disconnect', function() {
     clearInterval(timer);
@@ -71,8 +70,8 @@ app.get('/', function(req, res) {
 });
 
 socketServer.on('connection', (socket) => {
-  socket.on('start', () => {
-    trackTickers(socket);
+  socket.on('start', (data) => {
+    trackTickers(socket,data);
   });
 });
 
