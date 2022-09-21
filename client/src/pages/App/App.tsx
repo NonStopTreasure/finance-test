@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
+  Chip,
   Input,
   Paper,
   Table,
@@ -14,7 +15,7 @@ import {
 import Loader from '../../shared/Loader';
 import { LoaderTypes, UpdateTypes } from '../../common/enums';
 import Header from '../../shared/Header';
-import Row from './components/Row';
+import Row from './components/Row/Row';
 import { ISocketData } from '../../common/interfaces';
 import './App.scss';
 import socket from '../../api/socket';
@@ -25,11 +26,21 @@ const App = () => {
   const [isSocketLoading, setIsSocketLoading] = useState<boolean>(false);
   const [socketData, setSocketData] = useState<ISocketData[]>([]);
   const [tableData, setTableData] = useState<ISocketData[]>([]);
-
+  const [socketTimer, setSocketTimer] = useState<string>('');
   const [socketConnectStatus, setSocketConnectStatus] =
     useState<boolean>(false);
-  const [socketTimer, setSocketTimer] = useState<string>('');
+
+  const onDeleteIgnoreList = (ticker: string) => {
+    socket.disconnect();
+    setSocketConnectStatus(false);
+    const newIgnoreList = ignoreList.filter(
+      (ignoreTicker) => ignoreTicker !== ticker
+    );
+    setIgnoreList(newIgnoreList);
+  };
   const updateIgnoreList = (itemTicker: string) => {
+    socket.disconnect();
+    setSocketConnectStatus(false);
     const newIgnoreList = [...ignoreList];
     newIgnoreList.push(itemTicker);
     setIgnoreList(newIgnoreList);
@@ -51,10 +62,11 @@ const App = () => {
     });
 
   useEffect(() => {
-    socket.emit('start');
+    socket.connect();
+    socket.emit('start', { ignoreList });
     setSocketConnectStatus(true);
     setIsLoading(false);
-  }, []);
+  }, [ignoreList]);
 
   useEffect(() => {
     setIsSocketLoading(true);
@@ -153,7 +165,11 @@ const App = () => {
                 </TableHead>
                 <TableBody>
                   {tableData.map((row) => (
-                    <Row key={row.ticker} row={row} />
+                    <Row
+                      key={row.ticker}
+                      row={row}
+                      updateIgnoreList={() => updateIgnoreList(row.ticker)}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -163,8 +179,22 @@ const App = () => {
         <div
           className={'d-flex mt-4 justify-content-between align-items-center'}
         >
-          <h1>Ignore List</h1>
-          <h3>No Item</h3>
+          <h1 className={'w-auto text-nowrap'}>Ignore List</h1>
+          {!ignoreList.length ? (
+            <h3 className={'me-2 w-100 text-end'}>No Item</h3>
+          ) : (
+            <div className={'w-50 d-flex justify-content-end flex-wrap'}>
+              {ignoreList.map((ticker) => (
+                <Chip
+                  className="mt-1 mb-1 me-2"
+                  key={ticker + '_ignore'}
+                  label={ticker}
+                  variant="outlined"
+                  onDelete={() => onDeleteIgnoreList(ticker)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

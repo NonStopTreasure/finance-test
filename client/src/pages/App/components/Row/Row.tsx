@@ -15,13 +15,13 @@ import {
   Typography,
 } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
-import { ISocketData } from '../../../common/interfaces';
+import { ISocketData } from '../../../../common/interfaces';
 import moment from 'moment/moment';
 import './Row.scss';
-import { UpdateTypes } from '../../../common/enums';
+import { UpdateTypes } from '../../../../common/enums';
 
-const Row = (props: { row: ISocketData }) => {
-  const { row } = props;
+const Row = (props: { row: ISocketData; updateIgnoreList: () => void }) => {
+  const { row, updateIgnoreList } = props;
   const [open, setOpen] = React.useState(false);
   const changePercentFixed = (row.change_percent * 100).toFixed(2);
   const UpdateChanger = (status: UpdateTypes) => {
@@ -60,7 +60,7 @@ const Row = (props: { row: ISocketData }) => {
         <TableCell align="right">{row.change}</TableCell>
         <TableCell align="right">{changePercentFixed + '%'}</TableCell>
         <TableCell align="center">
-          <Button>Ignore</Button>
+          <Button onClick={updateIgnoreList}>Ignore</Button>
         </TableCell>
       </TableRow>
       <TableRow>

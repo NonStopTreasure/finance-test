@@ -28,7 +28,7 @@ function utcDate() {
 
 function getQuotes(socket, ignoreList) {
 
-  const quotes = tickers.filter(ticker => !ignoreList.includes(ticker)).map(ticker => ({
+  const quotes = tickers.filter(ticker => !ignoreList?.includes(ticker)).map(ticker => ({
     ticker,
     exchange: 'NASDAQ',
     price: randomValue(100, 300, 2),
