@@ -2,7 +2,7 @@ import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { Skeleton } from '@mui/material';
-import { LoaderTypes } from '../../common/enums';
+import { LoaderTypes } from '@enums/index';
 
 const Loader = (props: { type: LoaderTypes }) => {
   if (props.type === LoaderTypes.skeleton) {

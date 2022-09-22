@@ -23,8 +23,8 @@
     "downlevelIteration": true,
     "noFallthroughCasesInSwitch": true
   },
+  "extends": "./tsconfig.paths.json",
   "include": [
-    "src",
-    "src/setupTests"
+    "src"
   ]
 }

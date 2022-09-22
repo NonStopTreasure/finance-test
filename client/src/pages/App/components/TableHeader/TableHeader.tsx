@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, Input } from '@mui/material';
-import { IMainReducerState } from '../../../../common/interfaces';
-import { useAppDispatch, useAppSelector } from '../../../../redux/stores/hooks';
+import { IMainReducerState } from '@interfaces/index';
+import { useAppDispatch, useAppSelector } from '@redux/stores/hooks';
 import {
   selectApp,
   disconnectSocket,
   updateTimer,
   connectSocket,
-} from '../../../../redux/App/appSlice';
+} from '@redux/App/appSlice';
 
 const TableHeader = () => {
   const app: IMainReducerState = useAppSelector(selectApp);

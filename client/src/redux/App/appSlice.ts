@@ -1,6 +1,6 @@
-import { IMainReducerState } from '../../common/interfaces';
+import { IMainReducerState } from '@interfaces/index';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import socket from '../../api/socket';
+import socket from '@api/socket';
 import { RootState } from '../stores/rootStore';
 import { quotesHandler } from './utils';
 
@@ -8,7 +8,7 @@ export const initialState: IMainReducerState = {
   socketData: [],
   ignoreList: [],
   socketTimer: '5',
-  isSocketLoading: true,
+  isSocketLoading: false,
   socketConnectStatus: false,
 };
 

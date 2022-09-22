@@ -10,11 +10,11 @@ import {
   TableRow,
 } from '@mui/material';
 import Loader from '../../shared/Loader';
-import { LoaderTypes } from '../../common/enums';
-import Header from '../../shared/Header';
+import { LoaderTypes } from '@enums/index';
+import Header from '@shared/Header';
 import Row from './components/Row/Row';
-import socket from '../../api/socket';
-import { useAppDispatch, useAppSelector } from '../../redux/stores/hooks';
+import socket from '@api/socket';
+import { useAppDispatch, useAppSelector } from '@redux/stores/hooks';
 import TableHeader from './components/TableHeader/TableHeader';
 import IgnoreList from './components/IgnoreList/IgnoreList';
 import {
@@ -23,7 +23,7 @@ import {
   updateIgnoreList,
   updateSocketData,
   connectSocket,
-} from '../../redux/App/appSlice';
+} from '@redux/App/appSlice';
 import './App.scss';
 
 const App = () => {
