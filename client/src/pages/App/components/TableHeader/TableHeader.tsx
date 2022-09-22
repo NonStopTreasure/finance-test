@@ -30,6 +30,7 @@ const TableHeader = () => {
         )}
         <div>
           <Input
+            required
             type="number"
             disabled={socketConnectStatus}
             className="pe-2"
