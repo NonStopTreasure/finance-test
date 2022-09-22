@@ -1,5 +1,5 @@
-import { ISocketData } from '../../../common/interfaces';
-import { UpdateTypes } from '../../../common/enums';
+import { ISocketData } from '../../common/interfaces';
+import { UpdateTypes } from '../../common/enums';
 
 export function quotesHandler(
   oldQuotes: ISocketData[],

@@ -13,30 +13,24 @@ import Loader from '../../shared/Loader';
 import { LoaderTypes } from '../../common/enums';
 import Header from '../../shared/Header';
 import Row from './components/Row/Row';
-import { IMainReducerState, ISocketData } from '../../common/interfaces';
-import './App.scss';
 import socket from '../../api/socket';
 import { useAppDispatch, useAppSelector } from '../../redux/stores/hooks';
-import {
-  updateTickers,
-  updateIgnoreList,
-  connectSocket,
-  disconnectSocket,
-} from '../../redux/actions/appActions';
 import TableHeader from './components/TableHeader/TableHeader';
 import IgnoreList from './components/IgnoreList/IgnoreList';
+import {
+  selectApp,
+  disconnectSocket,
+  updateIgnoreList,
+  updateSocketData,
+  connectSocket,
+} from '../../redux/App/appSlice';
+import './App.scss';
 
 const App = () => {
-  const mainReducer: IMainReducerState = useAppSelector(
-    (state) => state.mainReducer
-  );
-  const { socketData, isSocketLoading, ignoreList } = mainReducer;
+  const mainReducerState = useAppSelector(selectApp);
+  const { socketData, ignoreList, isSocketLoading } = mainReducerState;
   const dispatch = useAppDispatch();
-  const socketConnect = () => dispatch(connectSocket());
-  const setTickers = (tickers: ISocketData[]) =>
-    dispatch(updateTickers(tickers));
   const socketDisconnect = () => dispatch(disconnectSocket());
-
   const pushToIgnoreList = (ignoreItem: string) => {
     socketDisconnect();
     const newIgnoreList: string[] = [...ignoreList];
@@ -45,13 +39,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    socketConnect();
+    dispatch(connectSocket());
   }, [ignoreList]);
 
   useEffect(() => {
-    socket.on('ticker', (quotes) => {
-      setTickers(quotes);
-    });
+    dispatch(updateSocketData());
   }, [socket]);
 
   if (isSocketLoading) {

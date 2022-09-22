@@ -1,22 +1,19 @@
 import React from 'react';
 import { Chip } from '@mui/material';
-import {
-  disconnectSocket,
-  updateIgnoreList,
-} from '../../../../redux/actions/appActions';
 import { IMainReducerState } from '../../../../common/interfaces';
 import { useAppDispatch, useAppSelector } from '../../../../redux/stores/hooks';
+import {
+  selectApp,
+  disconnectSocket,
+  updateIgnoreList,
+} from '../../../../redux/App/appSlice';
 
 const IgnoreList = () => {
-  const mainReducer: IMainReducerState = useAppSelector(
-    (state) => state.mainReducer
-  );
-  const { ignoreList } = mainReducer;
+  const app: IMainReducerState = useAppSelector(selectApp);
   const dispatch = useAppDispatch();
-  const socketDisconnect = () => dispatch(disconnectSocket());
-
+  const { ignoreList } = app;
   const popFromIgnoreList = (ignoreItem: string) => {
-    socketDisconnect();
+    dispatch(disconnectSocket());
     const newIgnoreList: string[] = [...ignoreList];
     const res = newIgnoreList.filter((item: string) => !item.match(ignoreItem));
     dispatch(updateIgnoreList(res));

@@ -11,10 +11,6 @@ export interface ISocketData {
   yield: number;
   last_trade_time: Date;
 }
-export interface IAppAction {
-  type: string;
-  payload?: ISocketData[] | string | string[];
-}
 
 export interface IMainReducerState {
   socketData: ISocketData[];

@@ -3,19 +3,17 @@ import { Button, Input } from '@mui/material';
 import { IMainReducerState } from '../../../../common/interfaces';
 import { useAppDispatch, useAppSelector } from '../../../../redux/stores/hooks';
 import {
-  connectSocket,
+  selectApp,
   disconnectSocket,
   updateTimer,
-} from '../../../../redux/actions/appActions';
+  connectSocket,
+} from '../../../../redux/App/appSlice';
 
 const TableHeader = () => {
-  const mainReducer: IMainReducerState = useAppSelector(
-    (state) => state.mainReducer
-  );
+  const app: IMainReducerState = useAppSelector(selectApp);
   const dispatch = useAppDispatch();
-  const { socketConnectStatus, socketTimer } = mainReducer;
-  const socketConnect = () => dispatch(connectSocket());
-  const socketDisconnect = () => dispatch(disconnectSocket());
+
+  const { socketConnectStatus, socketTimer } = app;
   const setTimer = (timer: string) => dispatch(updateTimer(timer));
   return (
     <>
@@ -24,9 +22,9 @@ const TableHeader = () => {
       </>
       <div className={'d-flex justify-content-between'}>
         {socketConnectStatus ? (
-          <Button onClick={socketDisconnect}>Turn Off</Button>
+          <Button onClick={() => dispatch(disconnectSocket())}>Turn Off</Button>
         ) : (
-          <Button onClick={socketConnect}>Turn On</Button>
+          <Button onClick={() => dispatch(connectSocket())}>Turn On</Button>
         )}
         <div>
           <Input
@@ -37,7 +35,10 @@ const TableHeader = () => {
             value={socketTimer}
             onChange={(e) => setTimer(e.target.value)}
           />
-          <Button disabled={socketConnectStatus} onClick={socketConnect}>
+          <Button
+            disabled={socketConnectStatus}
+            onClick={() => dispatch(connectSocket())}
+          >
             Set Timer and Turn On
           </Button>
         </div>
