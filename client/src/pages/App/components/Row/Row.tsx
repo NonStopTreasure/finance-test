@@ -15,10 +15,10 @@ import {
   Typography,
 } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
-import { ISocketData } from '../../../../common/interfaces';
+import { ISocketData } from '@interfaces/index';
 import moment from 'moment/moment';
 import './Row.scss';
-import { UpdateTypes } from '../../../../common/enums';
+import { UpdateTypes } from '@enums/index';
 
 const Row = (props: { row: ISocketData; updateIgnoreList: () => void }) => {
   const { row, updateIgnoreList } = props;

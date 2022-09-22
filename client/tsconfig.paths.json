@@ -1,1 +1,29 @@
-{}
+{
+  "compilerOptions": {
+    "paths": {
+      "@api/*": [
+        "src/api/*"
+      ],
+      "@interfaces/*": [
+        "src/common/interfaces/*"
+      ],
+      "@enums/*": [
+        "src/common/enums/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@redux/*": [
+        "src/redux/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@tests/*": [
+        "src/tests/*"
+      ]
+    }
+  }
+}
+
+

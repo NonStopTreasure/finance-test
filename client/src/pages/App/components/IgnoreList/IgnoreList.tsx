@@ -1,12 +1,12 @@
 import React from 'react';
 import { Chip } from '@mui/material';
-import { IMainReducerState } from '../../../../common/interfaces';
-import { useAppDispatch, useAppSelector } from '../../../../redux/stores/hooks';
+import { IMainReducerState } from '@interfaces/index';
+import { useAppDispatch, useAppSelector } from '@redux/stores/hooks';
 import {
   selectApp,
   disconnectSocket,
   updateIgnoreList,
-} from '../../../../redux/App/appSlice';
+} from '@redux/App/appSlice';
 
 const IgnoreList = () => {
   const app: IMainReducerState = useAppSelector(selectApp);
